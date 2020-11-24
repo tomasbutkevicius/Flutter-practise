@@ -40,9 +40,6 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
             Consumer<Todo>(
               builder:(context, counter, child) => Text(
                 '${todo.words}',
