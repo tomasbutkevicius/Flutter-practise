@@ -1,59 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_provider_test/model/todo.dart';
+import 'package:flutter_provider_test/pages/addTodo.dart';
+import 'package:flutter_provider_test/pages/todoList.dart';
+import 'package:flutter_provider_test/todoData.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'todo.dart';
 
-void main() {
-  runApp(MyApp());
+void main(){
+  Hive.registerAdapter(TodoAdapter());
+
+  runApp(TodoApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: ChangeNotifierProvider<Todo>(
-          create: (context) => Todo(),
-          child:MyHomePage(title: 'Flutter Demo Home Page')),
-    );
-  }
+Future _initHive() async {
+  var dir = await getApplicationDocumentsDirectory();
+
+  Hive.init(dir.path);
 }
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final  counter = Provider.of<Counter>(context, listen: false);
-    final Todo todo = Provider.of<Todo>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Consumer<Todo>(
-              builder:(context, counter, child) => Text(
-                '${todo.words}',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (context) => TodoData(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "To-dos",
+        theme: ThemeData(
+          primaryColor: Colors.lightBlueAccent
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: todo.add,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        initialRoute: "/",
+        routes: {
+          "/": (context) => FutureBuilder(
+            future: _initHive(),
+            builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.error != null) {
+                  print(snapshot.error);
+                  return Scaffold(
+                    body: Center(
+                      child: Text("Error establishing connection to hive"),
+                    ),
+                  );
+                } else {
+                  return TodoListPage();
+                }
+            } else
+              return Scaffold();
+            }
+          ),
+          "/AddTodoPage": (context) => AddTodoPage()
+        },
+      )
     );
   }
 }
