@@ -10,7 +10,6 @@ class TodoEditPage extends StatefulWidget {
 
   const TodoEditPage({@required this.currentTodo});
 
-
   @override
   _TodoEditPageState createState() => _TodoEditPageState();
 }
@@ -30,10 +29,10 @@ class _TodoEditPageState extends State<TodoEditPage> {
     }
 
     Provider.of<TodoData>(context, listen: false).editTodo(
-        todo: Todo(taskDescription: newTaskDescription,
+        todo: Todo(
+            taskDescription: newTaskDescription,
             isComplete: newIsCompleted ?? false),
-        todoKey: widget.currentTodo.key
-    );
+        todoKey: widget.currentTodo.key);
 
     Navigator.pop(context);
   }
@@ -53,12 +52,15 @@ class _TodoEditPageState extends State<TodoEditPage> {
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         elevation: 16.0,
-        title: Text("Edit todo",
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
+        title: Text(
+          "Edit todo",
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.save),
+          IconButton(
+              icon: Icon(Icons.save),
               iconSize: 24.0,
-              color: Colors.blue,
+              color: Colors.black,
               tooltip: "Save",
               onPressed: () {
                 _editTodo(context);
@@ -67,38 +69,44 @@ class _TodoEditPageState extends State<TodoEditPage> {
       ),
       body: Center(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              child: TextField(
+                autofocus: true,
+                controller: _descriptionController,
+                decoration: InputDecoration(hintText: "Description"),
+                onChanged: (v) {
+                  setState(() {
+                    newTaskDescription = v;
+                  });
+                },
+              ),
+            )),
+            Row(
               children: <Widget>[
-                TextField(
-                  autofocus: true,
-                  controller: _descriptionController,
-                  decoration: InputDecoration(
-                      hintText: "Description"
-                  ),
+                Text(
+                  "Is complete",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                ),
+                Switch(
+                  activeTrackColor: Colors.black,
+                  activeColor: Colors.blue,
                   onChanged: (v) {
                     setState(() {
-                      newTaskDescription = v;
+                      newIsCompleted = v;
                     });
                   },
-                ),
-                Row(
-                  children: <Widget>[
-                    Text("Is complete", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), ),
-                    Switch(activeTrackColor: Colors.black, activeColor: Colors.blue, onChanged: (v){
-                      setState(() {
-                        newIsCompleted = v;
-                      });
-                    },
-                      value: newIsCompleted ?? false,
-                    )
-                  ],
+                  value: newIsCompleted ?? false,
                 )
               ],
-            ),
-          )
-      ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 class TodoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<TodoData>(context, listen: true).getTodos();
-
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.blue,

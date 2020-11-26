@@ -6,10 +6,12 @@ import 'package:flutter_provider_test/todoData.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main(){
+void main() async {
   Hive.registerAdapter(TodoAdapter());
-
+  await Hive.initFlutter();
+  await Hive.openBox<Todo>("todoBox");
   runApp(TodoApp());
 }
 
@@ -19,7 +21,15 @@ Future _initHive() async {
   Hive.init(dir.path);
 }
 
+class Routes {
+  static Map<String, Widget Function(BuildContext)> routes = {
+    "/": (context) => TodoListPage(),
+    "/AddTodoPage": (context) => AddTodoPage()
+  };
+}
+
 class TodoApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -31,27 +41,7 @@ class TodoApp extends StatelessWidget {
           primaryColor: Colors.lightBlueAccent
         ),
         initialRoute: "/",
-        routes: {
-          "/": (context) => FutureBuilder(
-            future: _initHive(),
-            builder: (context, snapshot){
-              if(snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.error != null) {
-                  print(snapshot.error);
-                  return Scaffold(
-                    body: Center(
-                      child: Text("Error establishing connection to hive"),
-                    ),
-                  );
-                } else {
-                  return TodoListPage();
-                }
-            } else
-              return Scaffold();
-            }
-          ),
-          "/AddTodoPage": (context) => AddTodoPage()
-        },
+        routes: Routes.routes,
       )
     );
   }
