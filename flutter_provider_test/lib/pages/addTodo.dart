@@ -22,11 +22,13 @@ class _AddTodoPageState extends State<AddTodoPage> {
       toastWidget("Description must be longer text");
       return;
     }
+    Todo newTodo = Todo(taskDescription: taskDescription, isComplete: false);
 
     Provider.of<TodoData>(context, listen: false)
-        .addTodo(Todo(taskDescription: taskDescription, isComplete: false));
+        .addTodo(newTodo);
+    Provider.of<TodoData>(context, listen: false).setActiveTodo(newTodo.key);
 
-    Navigator.pop(context);
+    Navigator.pop(context, 'Added todo');
   }
 
   @override
@@ -43,7 +45,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
           IconButton(
               icon: Icon(Icons.save),
               iconSize: 24.0,
-              color: Colors.blue,
+              color: Colors.black,
               tooltip: "Save",
               onPressed: () {
                 _addTodo(context);

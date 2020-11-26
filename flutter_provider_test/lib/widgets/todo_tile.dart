@@ -14,26 +14,26 @@ class TodoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: tileIndex % 2 == 0 ? Colors.black87 : Colors.black54,
+        color: tileIndex % 2 == 0 ? Colors.grey[200] : Colors.white70,
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: tileIndex % 2 == 0 ? Colors.grey[200] : Colors.white70,
           child: currentTodo.isComplete == true
               ? Text("+",
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
+                  color: Colors.green,
+                  fontSize: 25.0,
                   fontWeight: FontWeight.bold))
               : Text("-",
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
+                  color: Colors.red,
+                  fontSize: 25.0,
                   fontWeight: FontWeight.bold)),
         ),
         title: Text(currentTodo.taskDescription?? "",
             style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold)
         ),
