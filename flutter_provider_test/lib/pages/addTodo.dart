@@ -6,6 +6,10 @@ import 'package:provider/provider.dart';
 import '../todoData.dart';
 
 class AddTodoPage extends StatefulWidget {
+  final ValueChanged<bool> onAddTodoTap;
+
+  const AddTodoPage({Key key, this.onAddTodoTap}) : super(key: key);
+
   @override
   _AddTodoPageState createState() => _AddTodoPageState();
 }
@@ -28,7 +32,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
         .addTodo(newTodo);
     Provider.of<TodoData>(context, listen: false).setLastUsedTodo(newTodo.key);
 
-    Navigator.pop(context, 'Added todo');
+    widget.onAddTodoTap(false);
   }
 
   @override

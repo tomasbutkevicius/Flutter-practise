@@ -42,9 +42,9 @@ class _TodoAppState extends State<TodoApp> {
     Provider.of<TodoData>(context, listen: false).setActiveTodo(todo.key);
   }
 
-  void _handleAddTodoTapped(bool selectedAddBtn) {
+  void _handleAddTodoTapped(bool selectedTodo) {
     setState(() {
-      _selectedAddTodo = selectedAddBtn;
+      _selectedAddTodo = selectedTodo;
     });
   }
 
@@ -70,12 +70,16 @@ class _TodoAppState extends State<TodoApp> {
                 if(todoData.getActiveTodo() != null)
                   MaterialPage(
                     child: TodoView(),
+                  ),
+                if(_selectedAddTodo)
+                  MaterialPage(
+                    child: AddTodoPage(onAddTodoTap: _handleAddTodoTapped,),
                   )
               ],
               onPopPage: (route, result) {
                 if (!route.didPop(result)) return false;
 
-
+                _selectedAddTodo = false;
                 Provider.of<TodoData>(context, listen: false).disableActiveTodo();
                 return true;
               },

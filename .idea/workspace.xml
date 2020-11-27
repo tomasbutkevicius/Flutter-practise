@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c426883-069d-4031-a67d-35e1e8689105" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/flutterPractise.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flutterPractise.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/pages/addTodo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/pages/addTodo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoEdit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoEdit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/pages/todoView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/todoData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/todoData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/widgets/todoList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/widgets/todoList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_provider_test/lib/widgets/todo_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_provider_test/lib/widgets/todo_tile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

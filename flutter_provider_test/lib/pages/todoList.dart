@@ -31,27 +31,28 @@ class TodoListPage extends StatelessWidget {
 
 class AddTodoButton extends StatelessWidget {
   final ValueChanged<bool> onAddTodoTap;
-  AddTodoButton({this.onAddTodoTap});
+
+  const AddTodoButton({Key key, this.onAddTodoTap}) : super(key: key);
 
   _navigateAndDisplayAction(BuildContext context) async {
-    // onAddTodoTap(true);
+    onAddTodoTap(true);
     // final result = await Navigator.pushNamed(context, '/AddTodoPage');
-    //
-    // Scaffold.of(context)
-    //   ..removeCurrentSnackBar()
-    //   ..showSnackBar(
-    //     SnackBar(
-    //       content: Text("$result",
-    //           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-    //       action: SnackBarAction(
-    //         label: 'Undo',
-    //         onPressed: (){
-    //           Todo addedTodo = Provider.of<TodoData>(context, listen: true).getLastUsedTodo();
-    //           Provider.of<TodoData>(context, listen: true).deleteTodo(addedTodo.key);
-    //         },
-    //       ),
-    //     ),
-    //   );
+
+    Scaffold.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text("Added Todo",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: (){
+              Todo addedTodo = Provider.of<TodoData>(context, listen: true).getLastUsedTodo();
+              Provider.of<TodoData>(context, listen: true).deleteTodo(addedTodo.key);
+            },
+          ),
+        ),
+      );
   }
 
   @override
