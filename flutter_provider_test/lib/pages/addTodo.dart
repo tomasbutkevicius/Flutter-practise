@@ -26,7 +26,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
     Provider.of<TodoData>(context, listen: false)
         .addTodo(newTodo);
-    Provider.of<TodoData>(context, listen: false).setActiveTodo(newTodo.key);
+    Provider.of<TodoData>(context, listen: false).setLastUsedTodo(newTodo.key);
 
     Navigator.pop(context, 'Added todo');
   }

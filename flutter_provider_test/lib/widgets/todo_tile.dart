@@ -5,13 +5,15 @@ import 'package:flutter_provider_test/todoData.dart';
 import 'package:provider/provider.dart';
 
 class TodoTile extends StatelessWidget {
+  final ValueChanged<Todo> onTap;
   final Todo currentTodo;
   final int tileIndex;
 
-  const TodoTile(this.currentTodo, this.tileIndex);
+  const TodoTile(this.currentTodo, this.tileIndex, this.onTap);
 
   @override
   Widget build(BuildContext context) {
+    print('build todo tile: ${currentTodo.key}');
     return Container(
       decoration: BoxDecoration(
         color: tileIndex % 2 == 0 ? Colors.grey[200] : Colors.white70,
@@ -38,17 +40,20 @@ class TodoTile extends StatelessWidget {
                 fontWeight: FontWeight.bold)
         ),
         onTap: (){
-
+          //
+          print('Tile on tap: START');
           Provider.of<TodoData>(context, listen: false).setActiveTodo(currentTodo.key);
-
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) {
-                    return TodoView();
-                  }
-              )
-          );
+          onTap(currentTodo);
+          print('Tile on tap: END');
+          //
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) {
+          //           return TodoView();
+          //         }
+          //     )
+          // );
 
         },
       ),

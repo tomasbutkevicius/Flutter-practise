@@ -6,6 +6,11 @@ import 'package:provider/provider.dart';
 import '../todoData.dart';
 
 class TodoListPage extends StatelessWidget {
+  final ValueChanged<Todo> onTodoTap;
+  final ValueChanged<bool> onAddTodoTap;
+
+  const TodoListPage({Key key, this.onTodoTap, this.onAddTodoTap}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,32 +22,36 @@ class TodoListPage extends StatelessWidget {
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[Expanded(child: Container(child: TodoList()))],
+        children: <Widget>[Expanded(child: Container(child: TodoList(onTodoTap: onTodoTap)))],
       )),
-      floatingActionButton: AddTodoButton(),
+      floatingActionButton: AddTodoButton(onAddTodoTap: onAddTodoTap),
     );
   }
 }
 
 class AddTodoButton extends StatelessWidget {
-  _navigateAndDisplayAction(BuildContext context) async {
-    final result = await Navigator.pushNamed(context, '/AddTodoPage');
+  final ValueChanged<bool> onAddTodoTap;
+  AddTodoButton({this.onAddTodoTap});
 
-    Scaffold.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text("$result",
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-          action: SnackBarAction(
-            label: 'Undo',
-            onPressed: (){
-              Todo currentTodo = Provider.of<TodoData>(context, listen: true).getActiveTodo();
-              Provider.of<TodoData>(context, listen: true).deleteTodo(currentTodo.key);
-            },
-          ),
-        ),
-      );
+  _navigateAndDisplayAction(BuildContext context) async {
+    // onAddTodoTap(true);
+    // final result = await Navigator.pushNamed(context, '/AddTodoPage');
+    //
+    // Scaffold.of(context)
+    //   ..removeCurrentSnackBar()
+    //   ..showSnackBar(
+    //     SnackBar(
+    //       content: Text("$result",
+    //           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+    //       action: SnackBarAction(
+    //         label: 'Undo',
+    //         onPressed: (){
+    //           Todo addedTodo = Provider.of<TodoData>(context, listen: true).getLastUsedTodo();
+    //           Provider.of<TodoData>(context, listen: true).deleteTodo(addedTodo.key);
+    //         },
+    //       ),
+    //     ),
+    //   );
   }
 
   @override

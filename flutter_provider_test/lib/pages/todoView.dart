@@ -48,7 +48,7 @@ class TodoView extends StatelessWidget {
               ),
               onPressed: () {
                 Log.d("Cancelling");
-                Navigator.of(context).pop();
+                // Navigator.of(context).pop();
               },
             )
           ],
@@ -61,6 +61,9 @@ class TodoView extends StatelessWidget {
   Widget build(BuildContext context) {
     var currentTodo =
         Provider.of<TodoData>(context, listen: true).getActiveTodo();
+    if(currentTodo == null) {
+      return Container();
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -77,14 +80,14 @@ class TodoView extends StatelessWidget {
             tooltip: "Edit",
             onPressed: () {
               Log.d("Selected to edit");
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return TodoEditPage(currentTodo: currentTodo);
-                  },
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) {
+              //       return TodoEditPage(currentTodo: currentTodo);
+              //     },
+              //   ),
+              // );
             },
           ),
           IconButton(

@@ -34,7 +34,7 @@ class _TodoEditPageState extends State<TodoEditPage> {
             isComplete: newIsCompleted ?? false),
         todoKey: widget.currentTodo.key);
 
-    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 
   final TextEditingController _descriptionController = TextEditingController();

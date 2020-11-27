@@ -8,6 +8,7 @@ class TodoData extends ChangeNotifier {
 
   List<Todo> _todo = [];
   Todo _activeTodo;
+  Todo _lastUsedTodo;
 
   TodoData() {
     _todo = box.values.toList();
@@ -46,13 +47,27 @@ class TodoData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setLastUsedTodo(key) async {
+    _lastUsedTodo = box.get(key);
+    notifyListeners();
+  }
+
   void setActiveTodo(key) async {
     _activeTodo = box.get(key);
     notifyListeners();
   }
 
+  void disableActiveTodo(){
+    _activeTodo = null;
+    notifyListeners();
+  }
+
   Todo getActiveTodo(){
     return _activeTodo;
+  }
+
+  Todo getLastUsedTodo(){
+    return _lastUsedTodo;
   }
 
   int get todoCount{
